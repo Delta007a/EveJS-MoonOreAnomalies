@@ -1,0 +1,10 @@
+# Local preferences and secrets
+.env
+settings.json
+*.log
+*.tmp
+node_modules/
+_local/
+_backup/
+work/
+audit/

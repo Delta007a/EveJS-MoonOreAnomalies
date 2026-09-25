@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 3,
+  "id": "moonoreanomalies",
+  "displayName": "MoonOreAnomalies",
+  "version": "0.5.0",
+  "description": "Server-side Moon Ore anomaly families and dungeon/scanner integration.",
+  "kind": "loader",
+  "supportedBackends": [
+    "native"
+  ],
+  "activation": {
+    "strategy": "loader_rename"
+  },
+  "restart": "game_server",
+  "compatibility": {
+    "evejsVersions": [
+      "0.12.8",
+      "0.12.9"
+    ]
+  },
+  "settings": {
+    "schemaVersion": 1,
+    "files": [
+      {
+        "id": "preferences",
+        "base": "mod",
+        "path": "settings.json",
+        "format": "json"
+      }
+    ],
+    "fields": [
+      {
+        "id": "enabled",
+        "label": "Enable Moon Ore anomalies",
+        "type": "boolean",
+        "default": false,
+        "restart": "game_server",
+        "file": "preferences",
+        "key": [
+          "enabled"
+        ]
+      },
+      {
+        "id": "verbose",
+        "label": "Verbose logging",
+        "type": "boolean",
+        "default": false,
+        "restart": "game_server",
+        "file": "preferences",
+        "key": [
+          "verbose"
+        ],
+        "advanced": true
+      }
+    ]
+  },
+  "updates": {
+    "provider": "github",
+    "repository": "Delta007a/EveJS-MoonOreAnomalies",
+    "asset": "EveJS-MoonOreAnomalies-{version}.zip",
+    "channel": "stable",
+    "tagPrefix": "v",
+    "preserveFiles": [
+      ".env"
+    ]
+  }
+}

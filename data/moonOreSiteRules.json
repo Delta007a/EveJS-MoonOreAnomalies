@@ -1,0 +1,123 @@
+{
+  "version": 1,
+  "note": [
+    "Moon-ore anomaly overlay for EVE.js v0.12.6 — data surface.",
+    "",
+    "Original design and the reference patch this mod reimplements are by Delta0070.",
+    "See CREDITS.md. This file preserves his family/tier/composition structure verbatim;",
+    "the `density` and `regionOverrides` blocks are additions, because a mod may not edit",
+    "the vendor config/siteDensityRules.json the way a patch can.",
+    "",
+    "Each family repurposes one RETIRED client-known ore anomaly identity, so the English",
+    "client renders a real site name with no client patch. These are warpable anomalies,",
+    "not probe signatures, and are not tied to any specific celestial moon.",
+    "",
+    "`density` is per security band: a slot ceiling and an independent spawn probability",
+    "per slot, matching the vendor siteDensityRules.json shape. A band omitted here gets",
+    "no sites of that family at all. `regionOverrides` zeroes a family for one region",
+    "outright — Pochven (10000070) is classified nullsec but shares none of its content.",
+    "",
+    "THE PROBABILITIES BELOW ARE NOT RESEARCHED VALUES. They are deliberately generous:",
+    "this is tuned for solo/small-group progression, not retail scarcity. Retuning them",
+    "is a data edit and needs no source change."
+  ],
+  "regionOverrides": {
+    "10000070": { "slots": 0, "p": 0 }
+  },
+  "families": {
+    "moon_r4": {
+      "tier": "R4",
+      "templateID": "client-dungeon:5524",
+      "clientName": "Large Potent Asteroid Cluster",
+      "securityBands": ["highsec", "lowsec", "nullsec"],
+      "siteLifetimeMinutes": 1440,
+      "density": {
+        "highsec": { "slots": 1, "p": 0.40 },
+        "lowsec": { "slots": 1, "p": 0.50 },
+        "nullsec": { "slots": 1, "p": 0.55 }
+      },
+      "miningRocks": [
+        { "typeID": 45490, "ore": "Zeolites", "count": 4, "quantity": 4000 },
+        { "typeID": 45491, "ore": "Sylvite", "count": 4, "quantity": 4000 },
+        { "typeID": 45492, "ore": "Bitumens", "count": 4, "quantity": 4000 },
+        { "typeID": 45493, "ore": "Coesite", "count": 4, "quantity": 4000 }
+      ]
+    },
+    "moon_r8": {
+      "tier": "R8",
+      "templateID": "client-dungeon:5525",
+      "clientName": "Enormous Potent Asteroid Cluster",
+      "securityBands": ["highsec", "lowsec", "nullsec"],
+      "siteLifetimeMinutes": 1440,
+      "density": {
+        "highsec": { "slots": 1, "p": 0.20 },
+        "lowsec": { "slots": 1, "p": 0.40 },
+        "nullsec": { "slots": 1, "p": 0.45 }
+      },
+      "miningRocks": [
+        { "typeID": 45494, "ore": "Cobaltite", "count": 4, "quantity": 3500 },
+        { "typeID": 45495, "ore": "Euxenite", "count": 4, "quantity": 3500 },
+        { "typeID": 45496, "ore": "Titanite", "count": 4, "quantity": 3500 },
+        { "typeID": 45497, "ore": "Scheelite", "count": 4, "quantity": 3500 }
+      ]
+    },
+    "moon_r16": {
+      "tier": "R16",
+      "templateID": "client-dungeon:5526",
+      "clientName": "Colossal Potent Asteroid Cluster",
+      "securityBands": ["lowsec", "nullsec"],
+      "siteLifetimeMinutes": 1440,
+      "density": {
+        "lowsec": { "slots": 1, "p": 0.30 },
+        "nullsec": { "slots": 1, "p": 0.35 }
+      },
+      "miningRocks": [
+        { "typeID": 45498, "ore": "Otavite", "count": 4, "quantity": 3000 },
+        { "typeID": 45499, "ore": "Sperrylite", "count": 4, "quantity": 3000 },
+        { "typeID": 45500, "ore": "Vanadinite", "count": 4, "quantity": 3000 },
+        { "typeID": 45501, "ore": "Chromite", "count": 4, "quantity": 3000 }
+      ]
+    },
+    "moon_r32": {
+      "tier": "R32",
+      "templateID": "client-dungeon:5528",
+      "clientName": "Enormous Rich Asteroid Cluster",
+      "securityBands": ["lowsec", "nullsec"],
+      "siteLifetimeMinutes": 1440,
+      "density": {
+        "lowsec": { "slots": 1, "p": 0.20 },
+        "nullsec": { "slots": 1, "p": 0.25 }
+      },
+      "miningRocks": [
+        { "typeID": 45502, "ore": "Carnotite", "count": 4, "quantity": 2500 },
+        { "typeID": 45503, "ore": "Zircon", "count": 4, "quantity": 2500 },
+        { "typeID": 45504, "ore": "Pollucite", "count": 4, "quantity": 2500 },
+        { "typeID": 45506, "ore": "Cinnabar", "count": 4, "quantity": 2500 }
+      ]
+    },
+    "moon_r64": {
+      "tier": "R64",
+      "templateID": "client-dungeon:5529",
+      "clientName": "Colossal Rich Asteroid Cluster",
+      "securityBands": ["lowsec", "nullsec"],
+      "siteLifetimeMinutes": 1440,
+      "density": {
+        "lowsec": { "slots": 1, "p": 0.12 },
+        "nullsec": { "slots": 1, "p": 0.18 }
+      },
+      "miningRocks": [
+        { "typeID": 45510, "ore": "Xenotime", "count": 4, "quantity": 2000 },
+        { "typeID": 45511, "ore": "Monazite", "count": 4, "quantity": 2000 },
+        { "typeID": 45512, "ore": "Loparite", "count": 4, "quantity": 2000 },
+        { "typeID": 45513, "ore": "Ytterbite", "count": 4, "quantity": 2000 }
+      ]
+    }
+  },
+  "siteIDBases": {
+    "moon_r4": 5910000000000,
+    "moon_r8": 5920000000000,
+    "moon_r16": 5930000000000,
+    "moon_r32": 5940000000000,
+    "moon_r64": 5950000000000
+  }
+}

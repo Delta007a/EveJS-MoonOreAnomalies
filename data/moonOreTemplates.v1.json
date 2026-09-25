@@ -1,0 +1,26 @@
+{
+  "schema": "evejs.mod.moon-ore-templates.v1",
+  "authoredForEvejs": "0.12.9-beta",
+  "authoredForClientBuild": 3475087,
+  "common": {
+    "sourcePriority": 100,
+    "sourceConfidence": { "label": "Verified client identity plus mod-owned population", "score": 100 },
+    "archetype": {
+      "descriptionID": 660912,
+      "contentTags": ["activity_mining", "career_path_industrialist", "feature_ore_anomalies"],
+      "location": "",
+      "titleID": 660913
+    },
+    "objectiveMarkers": [
+      { "role": "objective", "label": "Mine resource deposits", "key": "mine_resource_deposits", "icon": null, "analyzer": null },
+      { "role": "task", "label": "Extract mineable resources", "key": "extract_mineable_resources", "icon": null, "analyzer": null }
+    ]
+  },
+  "templatesByFamily": {
+    "moon_r4": { "templateID": "evejs-mod:moon-ore:r4:v1", "historicalSourceDungeonID": 5524, "resolvedName": "R4 Moon Ore Field", "archetypeID": 27, "historicalDungeonNameID": 289412, "factionID": 500021, "difficulty": 4, "entryObjectTypeID": 28356 },
+    "moon_r8": { "templateID": "evejs-mod:moon-ore:r8:v1", "historicalSourceDungeonID": 5525, "resolvedName": "R8 Moon Ore Field", "archetypeID": 27, "historicalDungeonNameID": 289416, "factionID": 500021, "difficulty": 5, "entryObjectTypeID": 28356 },
+    "moon_r16": { "templateID": "evejs-mod:moon-ore:r16:v1", "historicalSourceDungeonID": 5526, "resolvedName": "R16 Moon Ore Field", "archetypeID": 27, "historicalDungeonNameID": 289546, "factionID": 500021, "difficulty": 5, "entryObjectTypeID": 28356 },
+    "moon_r32": { "templateID": "evejs-mod:moon-ore:r32:v1", "historicalSourceDungeonID": 5528, "resolvedName": "R32 Moon Ore Field", "archetypeID": 27, "historicalDungeonNameID": 289559, "factionID": 500021, "difficulty": 5, "entryObjectTypeID": 28356 },
+    "moon_r64": { "templateID": "evejs-mod:moon-ore:r64:v1", "historicalSourceDungeonID": 5529, "resolvedName": "R64 Moon Ore Field", "archetypeID": 27, "historicalDungeonNameID": 289689, "factionID": 500021, "difficulty": 5, "entryObjectTypeID": 28356 }
+  }
+}
