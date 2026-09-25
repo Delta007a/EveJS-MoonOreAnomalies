@@ -60,8 +60,6 @@
     "asset": "EveJS-MoonOreAnomalies-{version}.zip",
     "channel": "stable",
     "tagPrefix": "v",
-    "preserveFiles": [
-      ".env"
-    ]
+    "preserveFiles": []
   }
 }
