@@ -4,7 +4,7 @@ Adds five Moon Ore anomaly families, R4 through R64, to the server's ordinary an
 
 ## Install and configure
 
-Use **EveJS Launcher v1.0.65 → Mods → Add ZIP**, select the release ZIP, enable the mod and restart the Game server. The release ZIP starts disabled. **Configure** exposes the Moon anomaly enable switch and verbose logging. The complex family, ore and probability rules remain in `data/moonOreSiteRules.json`; edit those only with a backup and a full validation run. The official ore-pack identity guard is fixed safety policy, not a user setting. A manual Native server can preload `mods/moonOreAnomalies/loader.js` with Node `--require` before EveJS modules load.
+Use **EveJS Launcher v1.0.66 → Mods → Add ZIP**, select the release ZIP, enable the mod and restart the Game server. The release ZIP starts disabled. **Configure** exposes the Moon anomaly enable switch and verbose logging. The complex family, ore and probability rules remain in `data/moonOreSiteRules.json`; edit those only with a backup and a full validation run. The official ore-pack identity guard is fixed safety policy, not a user setting. A manual Native server can preload `mods/moonOreAnomalies/loader.js` with Node `--require` before EveJS modules load.
 
 The Launcher writes `mods/moonOreAnomalies/settings.json` and carries it forward during updates. For older installations, copy `.env` values to `settings.json` before replacing the package; the public ZIP contains no personal `.env`. Precedence is nonempty process environment, then `settings.json`, then legacy `.env`, then disabled/quiet defaults. `.env.example` documents the environment names.
 
