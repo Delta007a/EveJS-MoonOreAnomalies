@@ -16,7 +16,7 @@ const sourceTransforms = require("./lib/sourceTransforms");
 const viability = require("./lib/viability");
 const snapshots = require("./data/moonOreTemplates.v1.json");
 
-const MOD_VERSION = "0.5.0";
+const MOD_VERSION = "0.5.3";
 // Advancing the loader release must not rotate accepted Moon instances.
 // This revision is embedded in populationHints and therefore in templateContentHash.
 const TEMPLATE_CONTENT_REVISION = "0.2.0";
@@ -199,6 +199,13 @@ function install(options = {}) {
     version: MOD_VERSION,
   };
   globalThis[INSTALL_MARKER] = state;
+  if (config.enabled && options.transientNames !== false) {
+    try {
+      state.transientNames = require("./lib/transientNames").install(runtimeRoot, MOD_DIR);
+      if (state.transientNames.active) restorers.push(() => state.transientNames.restore());
+      else console.warn("[moonOreAnomalies/names] UNAVAILABLE: " + state.transientNames.reason);
+    } catch (error) { state.transientNames = { active: false, reason: error.message }; }
+  }
   if (config.enabled) {
     log(
       `v${MOD_VERSION} armed for ${Object.keys(rules.families).length} families; ` +

@@ -2,7 +2,7 @@
   "schemaVersion": 3,
   "id": "moonoreanomalies",
   "displayName": "MoonOreAnomalies",
-  "version": "0.5.0",
+  "version": "0.5.3",
   "description": "Server-side Moon Ore anomaly families and dungeon/scanner integration.",
   "kind": "loader",
   "supportedBackends": [
@@ -15,7 +15,8 @@
   "compatibility": {
     "evejsVersions": [
       "0.12.8",
-      "0.12.9"
+      "0.12.9",
+      "261028.1"
     ]
   },
   "settings": {
@@ -61,5 +62,21 @@
     "channel": "stable",
     "tagPrefix": "v",
     "preserveFiles": []
+  },
+  "loadBefore": [
+    "soloprogressionbalance",
+    "droneclassbalance"
+  ],
+  "launcherApi": {
+    "version": 1,
+    "minLauncherVersion": "1.0.74",
+    "helper": {
+      "runtime": "node",
+      "path": "helper.js"
+    },
+    "capabilities": [
+      "prepare_server_start",
+      "verify"
+    ]
   }
 }
