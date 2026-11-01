@@ -5,6 +5,9 @@ const path = require("node:path");
 
 const ENABLE_KEY = "EVEJS_MOON_ORE_ANOMALIES";
 const VERBOSE_KEY = "EVEJS_MOON_ORE_ANOMALIES_VERBOSE";
+const DEFAULTS = Object.freeze({ spawnChanceMultiplier: 1, maxSitesPerSystem: 0, respawnDelayMinutes: 0 });
+const NUMERIC_KEYS = Object.freeze({spawnChanceMultiplier:"EVEJS_MOON_SPAWN_CHANCE_MULTIPLIER",
+  maxSitesPerSystem:"EVEJS_MOON_MAX_SITES_PER_SYSTEM",respawnDelayMinutes:"EVEJS_MOON_RESPAWN_DELAY_MINUTES"});
 
 function readEnvFile(file) {
   try {
@@ -33,7 +36,7 @@ function readSettings(modDir) {
   if (!fs.existsSync(file)) return {};
   const value = JSON.parse(fs.readFileSync(file, "utf8"));
   if (!value || typeof value !== "object" || Array.isArray(value)) throw new Error("Moon settings.json must contain an object");
-  for (const key of Object.keys(value)) if (!["enabled", "verbose"].includes(key)) throw new Error(`Unknown Moon setting: ${key}`);
+  for (const key of Object.keys(value)) if (!["enabled", "verbose", ...Object.keys(DEFAULTS)].includes(key)) throw new Error(`Unknown Moon setting: ${key}`);
   return value;
 }
 
@@ -45,11 +48,22 @@ function load(modDir, environment = process.env) {
     if (Object.prototype.hasOwnProperty.call(settings, name)) return settings[name];
     return fileValues[envKey];
   };
+  const numbers = {};
+  for (const [name, key] of Object.entries(NUMERIC_KEYS)) {
+    const raw = pick(name, key);
+    const value = raw === undefined || raw === null || raw === "" ? DEFAULTS[name] : Number(raw);
+    const max = name === "spawnChanceMultiplier" ? 10 : name === "maxSitesPerSystem" ? 5 : 10080;
+    if (!Number.isFinite(value) || value < 0 || value > max || (name === "maxSitesPerSystem" && !Number.isInteger(value))) {
+      throw new Error(`Invalid Moon ${name}: expected ${name === "maxSitesPerSystem" ? "integer" : "number"} from 0 to ${max}`);
+    }
+    numbers[name] = value;
+  }
   return Object.freeze({
+    ...numbers,
     enabled: readBoolean(pick("enabled", ENABLE_KEY), false),
     verbose: readBoolean(pick("verbose", VERBOSE_KEY), false),
     enableKey: ENABLE_KEY, verboseKey: VERBOSE_KEY,
   });
 }
 
-module.exports = { ENABLE_KEY, VERBOSE_KEY, load, readBoolean, readEnvFile, readSettings };
+module.exports = { DEFAULTS, NUMERIC_KEYS, ENABLE_KEY, VERBOSE_KEY, load, readBoolean, readEnvFile, readSettings };

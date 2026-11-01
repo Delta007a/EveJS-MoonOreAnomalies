@@ -224,7 +224,7 @@ const universeSource = fs.readFileSync(universeFile, "utf8");
 const transformedUniverseSource = transforms.transformUniverseRuntime(universeSource, rules.siteIDBases);
 test("universe transform adds its marker", () => assert.ok(transformedUniverseSource.includes(transforms.MARKER)));
 test("universe transform injects all five namespaces", () => assert.ok(families.every((family) => transformedUniverseSource.includes(`${family}: ${rules.siteIDBases[family]}`))));
-test("universe transform contains Moon-only probability call", () => assert.ok(transformedUniverseSource.includes("slotSpawnsInSystem(numericSystemID, entry.family, band, 0)")));
+test("universe transform contains Moon-only probability call", () => assert.ok(transformedUniverseSource.includes("slotSpawnsInSystem(numericSystemID, entry.family, band, 0, () => dungeonRuntime.listInstancesBySystem")));
 test("universe transform blocks unknown moon_ count fallback", () => assert.ok(transformedUniverseSource.includes('if (normalizedFamily.startsWith("moon_"))')));
 test("transformed universe source parses", () => assert.doesNotThrow(() => new Function("require", "module", "exports", "__filename", "__dirname", transformedUniverseSource)));
 test("transform refuses duplicate application", () => assert.throws(() => transforms.transformUniverseRuntime(transformedUniverseSource, rules.siteIDBases), /MOON_TRANSFORM_ALREADY_APPLIED/));

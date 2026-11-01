@@ -2,7 +2,7 @@
   "schemaVersion": 3,
   "id": "moonoreanomalies",
   "displayName": "MoonOreAnomalies",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Server-side Moon Ore anomaly families and dungeon/scanner integration.",
   "kind": "loader",
   "supportedBackends": [
@@ -52,6 +52,45 @@
           "verbose"
         ],
         "advanced": true
+      },
+      {
+        "id": "spawnChanceMultiplier",
+        "label": "Moon spawn chance multiplier",
+        "type": "number",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 10,
+        "restart": "game_server",
+        "file": "preferences",
+        "key": [
+          "spawnChanceMultiplier"
+        ]
+      },
+      {
+        "id": "maxSitesPerSystem",
+        "label": "Maximum Moon anomalies per system (0 = no cap)",
+        "type": "integer",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 5,
+        "restart": "game_server",
+        "file": "preferences",
+        "key": [
+          "maxSitesPerSystem"
+        ]
+      },
+      {
+        "id": "respawnDelayMinutes",
+        "label": "Mined-out site respawn delay (minutes; 0 = immediate)",
+        "type": "number",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 10080,
+        "restart": "game_server",
+        "file": "preferences",
+        "key": [
+          "respawnDelayMinutes"
+        ]
       }
     ]
   },

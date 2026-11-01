@@ -1,4 +1,7 @@
 {
   "enabled": false,
-  "verbose": false
+  "verbose": false,
+  "spawnChanceMultiplier": 1,
+  "maxSitesPerSystem": 0,
+  "respawnDelayMinutes": 0
 }

@@ -16,7 +16,7 @@ const sourceTransforms = require("./lib/sourceTransforms");
 const viability = require("./lib/viability");
 const snapshots = require("./data/moonOreTemplates.v1.json");
 
-const MOD_VERSION = "0.5.3";
+const MOD_VERSION = "0.5.4";
 // Advancing the loader release must not rotate accepted Moon instances.
 // This revision is embedded in populationHints and therefore in templateContentHash.
 const TEMPLATE_CONTENT_REVISION = "0.2.0";
@@ -70,7 +70,11 @@ function install(options = {}) {
     rules,
     systemIDs: options.systemIDs,
   });
-  const api = createRuntimeApi({ enabled: config.enabled, rules, version: MOD_VERSION });
+  const api = createRuntimeApi({ enabled: config.enabled, rules, version: MOD_VERSION,
+    settings: config,
+    templateIDs: Object.fromEntries(Object.entries(snapshots.templatesByFamily)
+      .map(([family, row]) => [family, row.templateID])),
+  });
   const canonicalTargets = new Map(
     Object.entries(viable.targets).map(([name, target]) => [target.canonical, { name, target }]),
   );
@@ -171,7 +175,7 @@ function install(options = {}) {
         transformedFiles.add(target.filename);
         // Re-read at compile time so the transform always receives the current
         // incoming file. Its semantic seam checks decide whether composition is safe.
-        return sourceTransforms.loadTransformed(target.filename, parent, rules.siteIDBases);
+        return sourceTransforms.loadTransformed(target.filename, parent, rules.siteIDBases, null, name);
       }
       const exported = previousLoad.apply(this, arguments);
       return target.kind === "overlay" ? installExportOverlay(name, exported) : exported;
@@ -197,6 +201,7 @@ function install(options = {}) {
     siteIDReport: viable.siteIDReport,
     targets: viable.targets,
     version: MOD_VERSION,
+    minedOutLifecycleAvailable: Boolean(viable.targets.dungeonUniverseSiteService),
   };
   globalThis[INSTALL_MARKER] = state;
   if (config.enabled && options.transientNames !== false) {
@@ -207,6 +212,9 @@ function install(options = {}) {
     } catch (error) { state.transientNames = { active: false, reason: error.message }; }
   }
   if (config.enabled) {
+    if (!state.minedOutLifecycleAvailable) {
+      log("native mined-out handler unavailable on legacy 0.12.8; automatic depletion completion requires 0.12.9 or a reviewed date-based release");
+    }
     log(
       `v${MOD_VERSION} armed for ${Object.keys(rules.families).length} families; ` +
       `${viable.siteIDReport.checkedMoonSiteIDs} site IDs collision-checked across ` +
