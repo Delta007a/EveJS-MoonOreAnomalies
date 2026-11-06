@@ -1,6 +1,10 @@
-# MoonOreAnomalies 0.5.4
+# MoonOreAnomalies 0.5.6
 
-Version 0.5.4 fixes full-depletion completion and adds Launcher Configure controls. Automated lifecycle checks pass on 261028.1; **live respawn testing is still needed**. This release is available for community testing. The earlier user confirmation below concerns 0.5.3.
+Moon adds its names to the existing login packet without detecting other mods. Temporary IDs are applied to outgoing scan results only for connections where the packet includes the name adapter.
+
+Offline login composition checks passed. The maintainer also checked the updated build in-game on EveJS 261028.1.
+
+Version 0.5.4 fixes full-depletion completion and adds Launcher Configure controls. Automated lifecycle checks pass on 261028.1; **live respawn testing is still needed**. Timed respawn is a separate gameplay check.
 
 ## Population and respawn controls
 
@@ -16,7 +20,7 @@ These are per-installation settings in `settings.json`. The public ZIP contains 
 
 Density decisions and the cap are deterministic for a system/family. Lowering them preserves existing active sites and their remaining rocks; an over-cap installation drains down as those sites complete. A completed site reserves its seat during cooldown, so another Moon family cannot bypass the delay. The cooldown deadline is stored on the native dungeon instance and survives server reload; changing the configured delay affects subsequent completions, not a deadline already recorded. The engine may retire a completed slot without replacement if lower population settings no longer allow it.
 
-Fully depleted owned Moon sites now enter the native `completed/depleted` lifecycle. Partial, unrecorded and unknown rock states never count as exhausted. The mod reuses native rock descriptors, persistence checks, occupied-grid teardown and the durable scheduler. No database wipe, template identity/content revision or client naming changes are involved. An already-empty site is detected when its scene is next materialized/ticked.
+Fully depleted owned Moon sites now enter the native `completed/depleted` lifecycle. Partial, unrecorded and unknown rock states never count as exhausted. The mod reuses native rock descriptors, persistence checks, occupied-grid teardown and the durable scheduler. Persistent template and site identities are retained. An already-empty site is detected when its scene is next materialized/ticked.
 
 The new depletion/cooldown hooks validate against 0.12.9, 261018.1 and 261028.1 sources; the manifest retains its prior advertised versions. Legacy 0.12.8 predates the native all-rock depletion handler and retains its previous creation/gameplay behavior, with an explicit loader diagnostic that automatic mined-out completion is unavailable there. It is not newly certified for this feature.
 
@@ -26,7 +30,7 @@ Supports native EveJS `0.12.8`, `0.12.9`, `261028.1`. The 261028.1 port was chec
 
 ## Install and update
 
-Download `EveJS-MoonOreAnomalies-0.5.4.zip` from [Releases](https://github.com/Delta007a/EveJS-MoonOreAnomalies/releases/latest). Use Launcher **Mods > Add ZIP**, enable the mod and open **Configure**. Release ZIPs contain `loader.js.disabled` and start disabled. Configuration changes require a Game server restart; transient client features require a fresh client connection.
+Download `EveJS-MoonOreAnomalies-0.5.6.zip` from [Releases](https://github.com/Delta007a/EveJS-MoonOreAnomalies/releases/latest). Open Launcher **Mods > Add ZIP**, enable the mod and open **Configure**. Release ZIPs contain `loader.js.disabled` and start disabled. Configuration changes require a Game server restart; transient client features require a fresh client connection.
 
 The package contains no personal `settings.json`, `.env`, runtime database or client archive. Launcher carries forward package-local files declared by the settings schema. Back up personal configuration before updating or removing a mod. For legacy customized source installations, transfer settings to the documented JSON configuration before updating; source files are replaced by updates.
 
@@ -50,7 +54,7 @@ These describe native ore rarity families, not current market ISK value. Persist
 
 Launcher runs a read-only `prepare_server_start` preflight. On reviewed EveJS 261028.1 / client build 3396210, the loader injects a transient login patch into process memory. It checks all five native method fingerprints before changing ScannableSiteData, ScanSvc and AnomalyBracket consumers. A private Python namespace supports deferred handlers. No server source or `code.ccp` file is modified. Unsupported delivery retains valid native donor labels and ordinary unrelated anomalies remain native. Older declared EveJS versions retain gameplay support; the new transient naming seam is guarded for 261028.1.
 
-The manifest loads Moon before SoloProgressionBalance and DroneClassBalance so their exact login ownership guards can compose. Names and fitting simulation coexist. Client hooks retire on disconnect/character change; reconnect installs a fresh session. Diagnostics distinguish `LOGIN_WRAPPER_READY`, `LOGIN_PAYLOAD_READY`, `MOON_NAMES:DELIVERED`, readiness and unsupported delivery.
+Moon adds its payload at the EveJS login call site and can coexist with fitting simulation in either preload order. Client hooks retire on disconnect/character change; reconnect installs a fresh session. Diagnostics distinguish `LOGIN_WRAPPER_READY`, `LOGIN_PAYLOAD_READY`, `MOON_NAMES:DELIVERED`, readiness and unsupported delivery.
 
 ## Safe removal
 

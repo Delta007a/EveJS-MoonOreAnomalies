@@ -39,23 +39,28 @@ class NamePatch(object):
         # Every required seam is verified before the first mutation.
         owner = self
         def key(site):
-            for value in (getattr(site, 'dungeonID', None), getattr(site, 'dungeonNameID', None)):
-                if value is not None and value in owner.names:
-                    return value
+            dungeon_id = getattr(site, 'dungeonID', None)
+            message_id = getattr(site, 'dungeonNameID', None)
+            row = owner.names.get(dungeon_id)
+            if row is not None and message_id in (row[1], dungeon_id):
+                return dungeon_id
+            # The native scanner projection carries only the name token.
+            if dungeon_id in (None, 0) and message_id in owner.names:
+                return message_id
             return None
         def get_dungeon(site):
             found = key(site)
-            return owner.names[found] if found is not None else owner.originals['GetDungeonName'](site)
+            return owner.names[found][0] if found is not None else owner.originals['GetDungeonName'](site)
         def get_scan(site):
             found = key(site)
-            return (found, owner.names[found]) if found is not None else owner.originals['GetScanName'](site)
+            return (found, owner.names[found][0]) if found is not None else owner.originals['GetScanName'](site)
         self.wrappers = {'GetDungeonName': get_dungeon, 'GetScanName': get_scan}
         for name, fn in self.wrappers.items():
             self.replace(self.cls, name, self.originals[name], fn)
         def scanner_wrapper(original):
             def wrapped(service, result):
                 found = key(result)
-                return owner.names[found] if found is not None else original(service, result)
+                return owner.names[found][0] if found is not None else original(service, result)
             return wrapped
         for name, original in scanner.items():
             self.replace(self.scan_cls, name, original, scanner_wrapper(original))
@@ -66,7 +71,7 @@ class NamePatch(object):
             def apply_attributes(widget, attributes):
                 native['SensorSuiteBracket'].ApplyAttributes(widget, attributes)
                 found = key(widget.data)
-                label = owner.names[found] if found is not None else native['localization'].GetByMessageID(widget.data.dungeonNameID)
+                label = owner.names[found][0] if found is not None else native['localization'].GetByMessageID(widget.data.dungeonNameID)
                 widget.UpdateSiteName(label)
             self.replace(self.bracket_cls, 'ApplyAttributes', bracket, apply_attributes)
 

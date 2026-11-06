@@ -16,7 +16,7 @@ const sourceTransforms = require("./lib/sourceTransforms");
 const viability = require("./lib/viability");
 const snapshots = require("./data/moonOreTemplates.v1.json");
 
-const MOD_VERSION = "0.5.4";
+const MOD_VERSION = "0.5.6";
 // Advancing the loader release must not rotate accepted Moon instances.
 // This revision is embedded in populationHints and therefore in templateContentHash.
 const TEMPLATE_CONTENT_REVISION = "0.2.0";
