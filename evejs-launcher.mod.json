@@ -2,7 +2,7 @@
   "schemaVersion": 3,
   "id": "moonoreanomalies",
   "displayName": "MoonOreAnomalies",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "description": "Server-side Moon Ore anomaly families and dungeon/scanner integration.",
   "kind": "loader",
   "supportedBackends": [
@@ -16,7 +16,8 @@
     "evejsVersions": [
       "0.12.8",
       "0.12.9",
-      "261028.1"
+      "261028.1",
+      "261108.1"
     ]
   },
   "settings": {
