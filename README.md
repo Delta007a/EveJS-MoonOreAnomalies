@@ -1,4 +1,6 @@
-# MoonOreAnomalies 0.5.8
+# MoonOreAnomalies 0.5.9
+
+The EveJS 261115.2 port wraps the updated login packet for anomaly naming. Offline checks covered all five Moon families, respawn and native Security mission selection.
 
 Version 0.5.8 preserves EveJS Security mission pack receipts when adding Moon Ore templates. On EveJS 261108.1, the offline regression checks cover L3-L5 offer selection and all five Moon Ore families.
 
@@ -30,13 +32,13 @@ The new depletion/cooldown hooks validate against 0.12.9, 261018.1, 261028.1 and
 
 Targeted offline checks: all five families at delays 0 and 15 minutes, reload preserving deadlines, partial/unknown rock states, foreign-site guards, occupied-grid hold, native durable rotation and stale jobs; 2000-system probability/cap checks plus 200 systems through the native planner; existing-site preservation; DCB/Solo naming/login composition; official Launcher 1.0.76 settings parser. No GUI or gameplay client was started for those checks.
 
-Supports native EveJS `0.12.8`, `0.12.9`, `261028.1`, `261108.1`. The 261028.1 port was checked with **EveJS Launcher 1.0.76** and EVE client **build 3396210**. The previous 0.5.3 release passed the user’s in-game checks on 2026-10-31; the automated port checks remain separate evidence. Older declared server support is retained, without claiming a new full certification of those versions.
+Supports native EveJS `0.12.8`, `0.12.9`, `261028.1`, `261108.1`, `261115.2`. The 261028.1 port was checked with **EveJS Launcher 1.0.76** and EVE client **build 3396210**. The previous 0.5.3 release passed the user’s in-game checks on 2026-10-31; the automated port checks remain separate evidence. Older declared server support is retained, without claiming a new full certification of those versions.
 
 The maintainer confirmed the four updated mods work together in-game on EveJS 261108.1.
 
 ## Install and update
 
-Download `EveJS-MoonOreAnomalies-0.5.8.zip` from [Releases](https://github.com/Delta007a/EveJS-MoonOreAnomalies/releases/latest). Open Launcher **Mods > Add ZIP**, enable the mod and open **Configure**. Release ZIPs contain `loader.js.disabled` and start disabled. Configuration changes require a Game server restart; transient client features require a fresh client connection.
+Download `EveJS-MoonOreAnomalies-0.5.9.zip` from [Releases](https://github.com/Delta007a/EveJS-MoonOreAnomalies/releases/latest). Open Launcher **Mods > Add ZIP**, enable the mod and open **Configure**. Release ZIPs contain `loader.js.disabled` and start disabled. Configuration changes require a Game server restart; transient client features require a fresh client connection.
 
 The package contains no personal `settings.json`, `.env`, runtime database or client archive. Launcher carries forward package-local files declared by the settings schema. Back up personal configuration before updating or removing a mod. For legacy customized source installations, transfer settings to the documented JSON configuration before updating; source files are replaced by updates.
 
