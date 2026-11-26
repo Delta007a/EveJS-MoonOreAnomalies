@@ -82,7 +82,7 @@ class NamePatch(object):
                 setattr(cls, name, original)
         self.installed = []
 
-def start(names, context):
+def start(names, context, expected_build):
     import __builtin__ as builtins
     import uthread
     import blue
@@ -115,7 +115,7 @@ def start(names, context):
                 self.OnDisconnect()
         def run(self):
             try:
-                if build != 3396210:
+                if build != expected_build:
                     print('MOON_NAMES:UNSUPPORTED_BUILD')
                     return
                 for attempt in range(240):
