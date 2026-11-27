@@ -8,14 +8,10 @@ function execute(request){
     const root=path.resolve(request.runtime.evejsRoot),mod=__dirname;
     if(request.runtime.backend!=='native')throw Error('Native runtime required');
     require('./lib/viability').run(root,{enabled:require('./config').load(mod).enabled,rules:require('./data/moonOreSiteRules.json')});
-    const version=JSON.parse(fs.readFileSync(path.join(root,'server/package.json'),'utf8')).version;
-    if (['0.12.8','0.12.9'].includes(version)) {
-      message='Legacy Moon gameplay ready; transient names unavailable on this release.';
-    } else {
-      const build = require('./lib/transientNames').getClientBuild(root);
-      if (build === null) throw Error('Unreviewed Moon login source/version');
-      message += ` Transient names require client build ${build}.`;
-    }
+    const build = require('./lib/transientNames').getClientBuild(root);
+    message += build === null
+      ? ' Transient names unavailable for this client or server contract.'
+      : ` Transient names are ready for client build ${build}.`;
   }catch(error){success=false;message=error.message;}
   return {protocol:request.protocol,requestId:request.requestId,success,state:success?'ready':'failed',message,restartRequired:[],contributions:[],environment:{},arguments:[]};
 }
